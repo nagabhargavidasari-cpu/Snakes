@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: 'Courier New', Courier, monospace;
+}
+
+:root {
+    --bg: #050505;
+    --panel: #111111;
+    --accent-cyan: #00f3ff;
+    --accent-pink: #ff00ff;
+    --accent-lime: #bcff00;
+    --text-main: #e0e0e0;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scanline Overlay */
+body::after {
+    content: " ";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.game-grid-bg {
+    background: repeating-linear-gradient(0deg, #111 0px, #111 19px, #222 20px),
+                repeating-linear-gradient(90deg, #111 0px, #111 19px, #222 20px);
+}
+
+@keyframes eq {
+  0% { height: 20%; }
+  50% { height: 100%; }
+  100% { height: 20%; }
+}
+
+.visualizer-bar {
+  width: 15%;
+  background-color: var(--accent-cyan);
+  transition: height 0.2s ease;
+}
+.visualizer-bar:nth-child(even) {
+  background-color: var(--accent-pink);
+}
+.visualizer-bar:nth-child(4n) {
+  background-color: var(--accent-lime);
+}
+
+.is-playing .visualizer-bar {
+  animation: eq 1s ease-in-out infinite;
+}
+
+.is-playing .visualizer-bar:nth-child(1) { animation-duration: 0.7s; animation-delay: 0.1s; }
+.is-playing .visualizer-bar:nth-child(2) { animation-duration: 0.5s; animation-delay: 0.3s; }
+.is-playing .visualizer-bar:nth-child(3) { animation-duration: 0.8s; animation-delay: 0.0s; }
+.is-playing .visualizer-bar:nth-child(4) { animation-duration: 0.6s; animation-delay: 0.2s; }
+.is-playing .visualizer-bar:nth-child(5) { animation-duration: 0.9s; animation-delay: 0.4s; }
+.is-playing .visualizer-bar:nth-child(6) { animation-duration: 0.75s; animation-delay: 0.15s; }
